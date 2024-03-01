@@ -10,7 +10,7 @@ namespace ClipboardHelper.ViewModels;
 public partial class MainPageViewModel : ObservableObject
 {
     public const char SpaceChar = ' ';
-    private bool removeUnnecessarySpaces = true, removeAllSpaces = true, trim = true;
+    private bool removeUnnecessarySpaces = true, removeAllSpaces, trim = true, toUpper, toLower;
 
     [ObservableProperty]
     private bool removeNewLines = true;
@@ -64,6 +64,40 @@ public partial class MainPageViewModel : ObservableObject
         }
     }
 
+    public bool ToUpper
+    {
+        get => toUpper;
+        set
+        {
+            if (value != toUpper)
+            {
+                toUpper = value;
+
+                if (value && ToLower)
+                    ToLower = false;
+
+                OnPropertyChanged(nameof(ToUpper));
+            }
+        }
+    }
+
+    public bool ToLower
+    {
+        get => toLower;
+        set
+        {
+            if (value != toLower)
+            {
+                toLower = value;
+
+                if (value && ToUpper)
+                    ToUpper = false;
+
+                OnPropertyChanged(nameof(ToLower));
+            }
+        }
+    }
+
     public MainPageViewModel()
     {
         WindowsClipboard.ContentChanged += new EventHandler<object>(OnClipboardChanged);
@@ -109,7 +143,13 @@ public partial class MainPageViewModel : ObservableObject
     public string EditText(string input)
     {
         Span<char> newTextSpan = input.Length * sizeof(char) <= 1024 ? stackalloc char[input.Length] : new char[input.Length];
-        input.CopyTo(newTextSpan);
+
+        if (ToLower)
+            MemoryExtensions.ToLowerInvariant(input, newTextSpan);
+        else if (ToUpper)
+            MemoryExtensions.ToUpperInvariant(input, newTextSpan);
+        else
+            input.CopyTo(newTextSpan);
 
         if (Trim)
             newTextSpan = newTextSpan.Trim();
@@ -122,7 +162,7 @@ public partial class MainPageViewModel : ObservableObject
 
         if (RemoveUnnecessarySpaces || RemoveAllSpaces)
             newTextSpan = RemoveUnnecessarySpacesFromSpan(newTextSpan, RemoveAllSpaces);
-            
+
         return new(newTextSpan);
     }
 

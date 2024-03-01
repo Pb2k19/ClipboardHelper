@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClipboardHelper"
         mc:Ignorable="d"
         Title="Clipboard Helper" 
-        Height="300" 
+        Height="370" 
         Width="300" 
         ResizeMode="CanMinimize">
 
