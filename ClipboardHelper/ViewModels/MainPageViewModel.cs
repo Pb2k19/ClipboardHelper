@@ -13,7 +13,7 @@ public partial class MainPageViewModel : ObservableObject
     private bool removeUnnecessarySpaces, removeAllSpaces, trim, toUpper, toLower;
 
     [ObservableProperty]
-    private bool removeNewLines = true;
+    private bool removeNewLines = false;
 
     public bool Trim
     {
