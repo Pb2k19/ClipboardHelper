@@ -16,17 +16,17 @@
 
         <CheckBox
             FontSize="18"
-            IsChecked="{Binding RemoveNewLines}">
-            Remove new line characters
-        </CheckBox>
-        
-        <CheckBox
-            Margin="0,15"
-            FontSize="18"
             IsChecked="{Binding Trim}">
             Trim
         </CheckBox>
-        
+
+        <CheckBox
+            Margin="0,15"
+            FontSize="18"
+            IsChecked="{Binding RemoveNewLines}">
+            Remove new line characters
+        </CheckBox>
+
         <CheckBox
             FontSize="18"
             IsChecked="{Binding RemoveUnnecessarySpaces}">
