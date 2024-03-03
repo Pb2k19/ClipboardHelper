@@ -10,7 +10,7 @@ namespace ClipboardHelper.ViewModels;
 public partial class MainPageViewModel : ObservableObject
 {
     public const char SpaceChar = ' ';
-    private bool removeUnnecessarySpaces = true, removeAllSpaces, trim = true, toUpper, toLower;
+    private bool removeUnnecessarySpaces, removeAllSpaces, trim, toUpper, toLower;
 
     [ObservableProperty]
     private bool removeNewLines = true;
