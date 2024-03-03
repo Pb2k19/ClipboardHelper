@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClipboardHelper"
         mc:Ignorable="d"
-        Title="Clipboard Helper" 
+        Title="Simple Clipboard Helper" 
         Height="330" 
         Width="300" 
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        Background="#262626">
 
     <Grid>
         <Frame 

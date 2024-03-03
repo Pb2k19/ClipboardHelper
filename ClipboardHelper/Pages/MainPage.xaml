@@ -11,52 +11,86 @@
       d:DesignWidth="800"
       Title="MainPage">
 
+    <Page.Resources>
+        <Style x:Key="StandardCheckBox" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="StandardButton" TargetType="Button">
+            <Setter Property="Background" Value="#4c4c4c"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="0,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter 
+                                Margin="{TemplateBinding Padding}" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"
+                            />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#727272"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
     <StackPanel
         Margin="15">
 
         <CheckBox
-            FontSize="18"
+            Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding Trim}">
             Trim
         </CheckBox>
 
         <CheckBox
             Margin="0,15"
-            FontSize="18"
+            Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding RemoveNewLines}">
             Remove new line characters
         </CheckBox>
 
         <CheckBox
-            FontSize="18"
+            Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding RemoveUnnecessarySpaces}">
             Remove unnecessary spaces
         </CheckBox>
         
         <CheckBox
             Margin="0,15"
-            FontSize="18"
+            Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding RemoveAllSpaces}">
             Remove all spaces
         </CheckBox>
 
         <CheckBox
-            FontSize="18"
+            Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding ToUpper}">
             To Upper Case
         </CheckBox>
 
         <CheckBox
             Margin="0,15"
-            FontSize="18"
+            Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding ToLower}">
             To Lower Case
         </CheckBox>
 
         <Button
-            FontSize="18"
-            Content="Clear clipboard"
+            Style="{StaticResource StandardButton}"
             Command="{Binding ClearClipboardCommand}"
+            Content="Clear clipboard"
         />
     </StackPanel>
 </Page>
