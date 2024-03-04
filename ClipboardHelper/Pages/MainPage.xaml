@@ -26,7 +26,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border 
+                        <Border
+                            Margin="{TemplateBinding Margin}"
                             Background="{TemplateBinding Background}">
                             <ContentPresenter 
                                 Margin="{TemplateBinding Padding}" 
@@ -49,16 +50,10 @@
         Margin="15">
 
         <CheckBox
+            Margin="0,10,0,15"
             Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding Trim}">
             Trim
-        </CheckBox>
-
-        <CheckBox
-            Margin="0,15"
-            Style="{StaticResource StandardCheckBox}"
-            IsChecked="{Binding RemoveNewLines}">
-            Remove new line characters
         </CheckBox>
 
         <CheckBox
@@ -76,18 +71,25 @@
 
         <CheckBox
             Style="{StaticResource StandardCheckBox}"
+            IsChecked="{Binding RemoveNewLines}">
+            Remove new line characters
+        </CheckBox>
+
+        <CheckBox
+            Margin="0,15"
+            Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding ToUpper}">
             To Upper Case
         </CheckBox>
 
         <CheckBox
-            Margin="0,15"
             Style="{StaticResource StandardCheckBox}"
             IsChecked="{Binding ToLower}">
             To Lower Case
         </CheckBox>
 
         <Button
+            Margin="0,10"
             Style="{StaticResource StandardButton}"
             Command="{Binding ClearClipboardCommand}"
             Content="Clear clipboard"
