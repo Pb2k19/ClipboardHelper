@@ -4,6 +4,9 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using Windows.ApplicationModel.DataTransfer;
 using CommunityToolkit.Mvvm.Input;
+using ClipboardHelper.Services.ConfigService;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace ClipboardHelper.ViewModels;
 
@@ -98,9 +101,24 @@ public partial class MainPageViewModel : ObservableObject
         }
     }
 
-    public MainPageViewModel()
+    [JsonConstructor]
+    protected MainPageViewModel() { }
+
+    public MainPageViewModel(IConfigService configService)
     {
         WindowsClipboard.ContentChanged += new EventHandler<object>(OnClipboardChanged);
+
+        string? serialized = configService.GetConfigSetting(Const.PreferencesKeys.MainPageViewModelSerializedKey, string.Empty);
+        if (!string.IsNullOrEmpty(serialized))
+        {
+            try
+            {
+                MainPageViewModel? deserialized = JsonSerializer.Deserialize<MainPageViewModel>(serialized);
+                if (deserialized is not null)
+                    SetValues(deserialized);
+            }
+            catch (JsonException) { }
+        }
     }
 
     protected async void OnClipboardChanged(object? sender, object? e)
@@ -189,5 +207,15 @@ public partial class MainPageViewModel : ObservableObject
         }
 
         return chars[..length];
+    }
+
+    private void SetValues(MainPageViewModel vm)
+    {
+        RemoveUnnecessarySpaces = vm.RemoveUnnecessarySpaces;
+        RemoveAllSpaces = vm.RemoveAllSpaces;
+        RemoveNewLines = vm.RemoveNewLines;        
+        ToUpper = vm.ToUpper;
+        ToLower = vm.ToLower;
+        Trim = vm.Trim;
     }
 }
